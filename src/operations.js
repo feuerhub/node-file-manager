@@ -1,4 +1,3 @@
-import path from 'path';
 import {
     getHomedir,
     getUsername,
@@ -6,13 +5,14 @@ import {
     getEOL,
     getCpus
 } from './os.js';
-import { getResolvedPath, ls, up } from './navigation.js';
+import { getResolvedPath, ls, up, cd } from './navigation.js';
 import { calculateHash } from './hash.js';
 
 export const execute = async (command) => {
-    if (command.split(' ')[0] == 'os') {
+    const commandParameters = command.split(' ');
+    if (commandParameters[0] === 'os') {
         //OS operations
-        switch (command.split(' ')[1]) {
+        switch (commandParameters[1]) {
             case '--EOL':
                 console.log(getEOL());
                 break;
@@ -33,13 +33,20 @@ export const execute = async (command) => {
                 break;
         }
     } else {
-        switch (command.split(' ')[0]) {
+        switch (commandParameters[0]) {
             //Navigation operations
             case 'ls':
                 await ls();
                 break;
             case 'up':
                 up();
+                break;
+            case 'cd':
+                if (!commandParameters[1]) {
+                    console.log('Invalid input');
+                    break;
+                }
+                cd(getResolvedPath(commandParameters[1]));
                 break;
             //Hash operations
             case 'hash':

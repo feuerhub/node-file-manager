@@ -1,5 +1,5 @@
 import path from 'path';
-import { readdir } from 'node:fs';
+import { promises as fs, readdir } from 'fs';
 
 let currentDirectory = process.env.HOME || process.env.USERPROFILE;
 
@@ -17,6 +17,19 @@ export const up = async () => {
     if (currentDirectory === root) return;
     currentDirectory = parentDirectory;
 }
+
+export const cd = async (newPath) => {
+    try {
+        await fs.access(newPath);
+        const stats = await fs.stat(newPath);
+        if (!stats.isDirectory()) {
+            console.error('Operation failed');
+        }
+        currentDirectory = newPath;
+    } catch (error) {
+        console.error('Operation failed');
+    }
+};
 
 export const ls = async () => {
     readdir(currentDirectory, { withFileTypes: true }, (err, files) => {
