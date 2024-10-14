@@ -1,13 +1,8 @@
-import {
-    getHomedir,
-    getUsername,
-    getArchitecture,
-    getEOL,
-    getCpus
-} from './os.js';
+import { getHomedir, getUsername, getArchitecture, getEOL, getCpus } from './os.js';
 import { getResolvedPath, ls, up, cd } from './navigation.js';
 import { calculateHash } from './hash.js';
 import { compress, decompress } from './zip.js';
+import { cat, add, rn, cp, mv, rm } from './files.js';
 
 export const execute = async (command) => {
     const commandParameters = command.split(' ');
@@ -48,6 +43,28 @@ export const execute = async (command) => {
                     break;
                 }
                 cd(getResolvedPath(commandParameters[1]));
+                break;
+            //FS operations
+            case 'add':
+                if (!commandParameters[1]) {
+                    console.log('Invalid input');
+                    break;
+                }
+                add(getResolvedPath(commandParameters[1]));
+                break;
+            case 'cat':
+                if (!commandParameters[1]) {
+                    console.log('Invalid input');
+                    break;
+                }
+                cat(getResolvedPath(commandParameters[1]));
+                break;
+            case 'rm':
+                if (!commandParameters[1]) {
+                    console.log('Invalid input');
+                    break;
+                }
+                rm(getResolvedPath(commandParameters[1]));
                 break;
             //Hash operations
             case 'hash':
