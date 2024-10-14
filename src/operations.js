@@ -13,7 +13,7 @@ export const execute = async (command) => {
                 console.log(getEOL());
                 break;
             case '--cpus':
-                console.log(getCpus());
+                getCpus();
                 break;
             case '--homedir':
                 console.log(getHomedir());

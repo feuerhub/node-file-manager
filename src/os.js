@@ -6,11 +6,10 @@ export const getEOL = () => {
 
 export const getCpus = () => {
   const cpus = os.cpus();
-  const totalCPUs = cpus.length;
-  const cpuDetails = cpus.map((cpu, index) => {
-    return `CPU ${index + 1}: Model - ${cpu.model}, Speed - ${(cpu.speed / 1000).toFixed(2)} GHz`;
-  }).join('\n');
-  return `Total CPUs: ${totalCPUs}\n${cpuDetails}`;
+  console.log(`Total CPUs: ${cpus.length}`);
+  cpus.map((cpu, index) => {
+    console.log(`${index+1}: ${cpu.model}, ${(cpu.speed / 1000).toFixed(2)} GHz`);
+  })
 }
 
 export const getHomedir = () => {
