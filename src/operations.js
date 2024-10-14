@@ -45,6 +45,27 @@ export const execute = async (command) => {
                 cd(getResolvedPath(commandParameters[1]));
                 break;
             //FS operations
+            case 'mv':
+                if (!commandParameters[1] || !commandParameters[2]) {
+                    console.log('Invalid input');
+                    break;
+                }
+                mv(getResolvedPath(commandParameters[1]), getResolvedPath(commandParameters[2]));
+                break;
+            case 'cp':
+                if (!commandParameters[1] || !commandParameters[2]) {
+                    console.log('Invalid input');
+                    break;
+                }
+                cp(getResolvedPath(commandParameters[1]), getResolvedPath(commandParameters[2]));
+                break;
+            case 'rn':
+                if (!commandParameters[1] || !commandParameters[2]) {
+                    console.log('Invalid input');
+                    break;
+                }
+                rn(getResolvedPath(commandParameters[1]), commandParameters[2]);
+                break;
             case 'add':
                 if (!commandParameters[1]) {
                     console.log('Invalid input');
