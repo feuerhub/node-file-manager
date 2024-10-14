@@ -51,12 +51,11 @@ export const execute = async (command) => {
                 break;
             //Hash operations
             case 'hash':
-                const filePath = command.split(' ')[1];
-                if (!filePath) {
+                if (!commandParameters[1]) {
                     console.log('Invalid input');
                     break;
                 }
-                await calculateHash(getResolvedPath(filePath));
+                await calculateHash(getResolvedPath(commandParameters[1]));
                 break;
             //Compress & Decompress operations
             case 'compress':

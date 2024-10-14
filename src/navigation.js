@@ -32,13 +32,13 @@ export const cd = async (newPath) => {
 };
 
 export const ls = async () => {
-    readdir(currentDirectory, { withFileTypes: true }, (err, files) => {
-        if (err) {
-            throw new Error('Operation failed');
-        }
+    try {
+        const files = await fs.readdir(currentDirectory, { withFileTypes: true });
         const result = files.map(file => {
-            return {Name: file.name, Type: file.isDirectory() ? 'directory' : 'file'}
+            return { Name: file.name, Type: file.isDirectory() ? 'directory' : 'file' };
         });
         console.table(result);
-    })
+    } catch (err) {
+        console.error('Operation failed');
+    }
 }

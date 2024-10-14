@@ -12,7 +12,7 @@ export const startCLISession = async (username) => {
             stopCLISession(rl, username);
         }
         try {
-            execute(line);
+            await execute(line);
         } finally {
             showWorkingDirectoryPath();
         }
