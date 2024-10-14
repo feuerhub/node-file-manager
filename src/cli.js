@@ -11,8 +11,11 @@ export const startCLISession = async (username) => {
         if (line == '.exit') {
             stopCLISession(rl, username);
         }
-        execute(line);
-        showWorkingDirectoryPath();
+        try {
+            execute(line);
+        } finally {
+            showWorkingDirectoryPath();
+        }
     }).on('SIGINT', () => {
         stopCLISession(rl, username);
     });

@@ -7,6 +7,7 @@ import {
 } from './os.js';
 import { getResolvedPath, ls, up, cd } from './navigation.js';
 import { calculateHash } from './hash.js';
+import { compress, decompress } from './zip.js';
 
 export const execute = async (command) => {
     const commandParameters = command.split(' ');
@@ -56,6 +57,21 @@ export const execute = async (command) => {
                     break;
                 }
                 await calculateHash(getResolvedPath(filePath));
+                break;
+            //Compress & Decompress operations
+            case 'compress':
+                if (!commandParameters[1] || !commandParameters[2]) {
+                    console.log('Invalid input');
+                    break;
+                }
+                await compress(getResolvedPath(commandParameters[1]), getResolvedPath(commandParameters[2]));
+                break;
+            case 'decompress':
+                if (!commandParameters[1] || !commandParameters[2]) {
+                    console.log('Invalid input');
+                    break;
+                }
+                await decompress(getResolvedPath(commandParameters[1]), getResolvedPath(commandParameters[2]));
                 break;
             default:
                 console.log('Invalid input');
