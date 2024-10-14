@@ -32,15 +32,16 @@ export const rn = async (oldPath, newName) => {
   }
 }
 
-export const cp = async(source, destination) => {
-  const readStream = fs.createReadStream(source);
-  const writeStream = fs.createWriteStream(destination);
-  try {
-    await pipeline(readStream, writeStream);
-  } catch {
-    console.log('Operation failed');
-  }
-}
+export const cp = async (source, destination) => {
+    try {
+      await fs.promises.access(source);
+      const readStream = fs.createReadStream(source);
+      const writeStream = fs.createWriteStream(destination);
+      await pipeline(readStream, writeStream);
+    } catch (error) {
+      console.log('Operation failed');
+    }
+  };
 
 export const mv = async (source, destination) => {
   try {
